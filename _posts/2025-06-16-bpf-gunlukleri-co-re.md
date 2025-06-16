@@ -2,19 +2,17 @@
 layout: post
 title: "BPF Günlükleri: Packet Counter'dan Trafik Analizine – BPF CO-RE ile Gelişmiş Uygulamalar"
 description: "Bu yazıda, eBPF CO-RE desteği ile taşınabilir bir trafik analiz uygulaması geliştireceğiz."
-image: /assets/images/bpf-core-network-analysis.png
+image: assets/images/bpf-core-network-analysis.png
 category: linux
 slug: bpf-core-ile-trafik-analizi
 author: msrexe
 ---
 
-# 
-
-
+![Image](assets/images/bpf-core-network-analysis.png)
 
 Bir önceki yazıda, eBPF mimarisini kullanarak temel bir **packet counter** uygulaması geliştirmiştik. Ancak klasik yöntemle yazılmış bu eBPF programları, kernel versiyonlarına göre farklılık gösteren `linux/bpf.h` gibi bağımlılıklara sahipti. Bu da taşınabilirliği oldukça azaltıyor ve farklı linux çekirdeklerinde kernellarında çalıştırmayı zorlaştırıyordu.
 
-İşte bu yazıda, **CO-RE (Compile Once – Run Everywhere)** özelliğini kullanarak farklı sistemlerde çalışabilen bir trafik analiz uygulaması yazacağız. Hedefimiz gelen paketlerin kaynak IP adreslerine göre sınıflandırılması ve yoğunluk analizidir.
+İşte bu yazıda, **CO-RE (Compile Once – Run Everywhere)** özelliğini kullanarak farklı sistemlerde çalışabilen bir trafik analiz uygulaması yazacağız. Hedefimiz gelen paketlerin kaynak IP adreslerine göre sınıflandırılması ve yoğunluk analizi olacak.
 
 ---
 
@@ -90,7 +88,7 @@ int count_src_ips(struct xdp_md *ctx) {
 
 ---
 
-## 3. Go ile Kernel’a Yükleme ve İzleme
+## 3. Go ile kernel’a yükleme ve izleme
 
 `main.go` dosyasını şu şekilde yazalım:
 
@@ -192,7 +190,7 @@ clang -O2 -g -target bpf -D__TARGET_ARCH_x86 -I. -c ip_counter.bpf.c -o ip_count
 
 > `-I.` parametresi ile bulunduğunuz klasördeki `vmlinux.h` dosyasını da eklemeyi unutmayın.
 
-### Go Kodunu Çalıştırma
+### Go kodunu çalıştırma
 
 ```sh
 go mod init ip-analyzer
@@ -202,7 +200,7 @@ go run main.go
 
 ---
 
-## Örnek Çıktı
+## Örnek çıktı
 
 ```
 2025/06/16 21:45:00 Tracking source IPs on eth0...
@@ -219,3 +217,5 @@ Top Source IPs:
 Bu yazıda, **CO-RE** desteği ile yazılmış taşınabilir bir eBPF uygulaması geliştirdik. Packet counter uygulamasını bir adım ileri taşıyarak, **kaynak IP adreslerine göre trafik analizi** gerçekleştirdik.
 
 Bu yapı sayesinde artık kernel header'larını elle ayarlamaya gerek kalmadan, farklı sistemlerde çalışabilen bir analiz aracı elde ettik.
+
+Bir sonraki yazıda, eBPF üzerine öğrendiğim yeni şeyleri paylaşacağım. Şimdilik esenlikle kalın..
