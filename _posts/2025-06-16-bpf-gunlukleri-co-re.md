@@ -1,6 +1,16 @@
-# BPF Günlükleri: Packet Counter'dan Trafik Analizine – BPF CO-RE ile Gelişmiş Uygulamalar
+---
+layout: post
+title: "BPF Günlükleri: Packet Counter'dan Trafik Analizine – BPF CO-RE ile Gelişmiş Uygulamalar"
+description: "Bu yazıda, eBPF CO-RE desteği ile taşınabilir bir trafik analiz uygulaması geliştireceğiz."
+image: /assets/images/bpf-core-network-analysis.png
+category: linux
+slug: bpf-core-ile-trafik-analizi
+author: msrexe
+---
 
-## Giriş
+# 
+
+
 
 Bir önceki yazıda, eBPF mimarisini kullanarak temel bir **packet counter** uygulaması geliştirmiştik. Ancak klasik yöntemle yazılmış bu eBPF programları, kernel versiyonlarına göre farklılık gösteren `linux/bpf.h` gibi bağımlılıklara sahipti. Bu da taşınabilirliği oldukça azaltıyor ve farklı linux çekirdeklerinde kernellarında çalıştırmayı zorlaştırıyordu.
 
