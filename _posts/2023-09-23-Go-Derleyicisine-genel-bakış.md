@@ -6,6 +6,7 @@ image: https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJm
 category: go
 slug: go-derleyicisine-genel-bakis
 author: msrexe
+lang: tr
 ---
 
 ![Go derleyicisine genel bakış](https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png)

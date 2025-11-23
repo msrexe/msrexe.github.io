@@ -6,6 +6,7 @@ image: assets/images/bpf-core-network-analysis.png
 category: linux
 slug: bpf-core-ile-trafik-analizi
 author: msrexe
+lang: tr
 ---
 
 ![Image](assets/images/bpf-core-network-analysis.png)

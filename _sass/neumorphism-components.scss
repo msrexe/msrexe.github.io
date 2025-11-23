@@ -1,0 +1,670 @@
+// Neumorphism Components
+
+// Header styling
+header, .archive-header {
+  @include card;
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  margin-bottom: 3rem;
+  text-align: center;
+  @include subtle-shadow;
+  
+  h1 {
+    margin: 0;
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, $accent 0%, lighten($accent, 20%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.03em;
+  }
+  
+  p {
+    color: $text-secondary;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+  }
+}
+
+// Article/Post styling
+article {
+  @include card;
+  padding: 2.625rem; // 25% azaltıldı (3.5rem * 0.75)
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  @include subtle-shadow;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  h1 {
+    margin-top: 0;
+    color: $text-primary;
+    font-size: 3rem;
+    text-align: center;
+  }
+  
+  > .post-meta {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    
+    .read-time {
+      color: $accent;
+      font-weight: 600;
+    }
+  }
+}
+
+// Menu/Navigation
+nav, .menu {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    @include card;
+    margin: 0.75rem 0;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      @include card-hover;
+      transform: translateX(4px);
+    }
+    
+    a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: $text-primary;
+      font-weight: 500;
+      
+      &:hover {
+        color: $accent;
+      }
+    }
+  }
+}
+
+// Post filters
+.post-filters {
+  @include card;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2.5rem;
+  @include subtle-shadow;
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .filter-label {
+    font-weight: 600;
+    color: $text-primary;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+  }
+  
+  .filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .filter-btn {
+    @include card;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $text-secondary;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: capitalize;
+    
+    &:hover {
+      @include card-hover;
+      color: $text-primary;
+    }
+    
+    &.active {
+      background: rgba(0, 212, 255, 0.15);
+      border-color: $accent;
+      color: $accent;
+    }
+  }
+}
+
+// Post grid - using flexbox for better compatibility
+.post-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 1.5rem;
+  margin: 2rem 0;
+  transition: opacity 0.3s ease;
+}
+
+// Post card
+.post-card {
+  @include card;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 calc((100% - 3rem) / 3);
+  max-width: calc((100% - 3rem) / 3);
+  
+  @media (max-width: 900px) {
+    flex: 0 0 calc((100% - 1.5rem) / 2);
+    max-width: calc((100% - 1.5rem) / 2);
+  }
+  
+  @media (max-width: 600px) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  &:hover {
+    @include card-hover;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+  
+  .post-card-image {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    background: linear-gradient(135deg, $bg-elevated 0%, lighten($bg-elevated, 5%) 100%);
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+      pointer-events: none;
+    }
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+  
+  &:hover .post-card-image img {
+    transform: scale(1.08);
+  }
+  
+  .post-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, $bg-elevated 0%, lighten($bg-elevated, 8%) 100%);
+    
+    .placeholder-icon {
+      font-size: 4rem;
+      opacity: 0.3;
+    }
+  }
+  
+  .post-card-content {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .post-card-title {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+    
+    a {
+      color: $text-primary;
+      text-decoration: none;
+      
+      &:hover {
+        color: $accent;
+      }
+    }
+  }
+  
+  .post-meta {
+    color: $text-secondary;
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    
+    time {
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+    
+    .read-time {
+      color: $accent;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+    
+    .lang-tag {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      margin: 0;
+    }
+  }
+  
+  .post-excerpt {
+    color: $text-secondary;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 0.75rem 0;
+    flex-grow: 1;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .post-card-footer {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid $border-color;
+    
+    .category {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.65rem;
+      margin: 0;
+    }
+  }
+  
+  // Hidden state for filtering
+  &.hidden {
+    display: none;
+  }
+}
+
+// Buttons
+.btn, button, input[type="submit"] {
+  @include card;
+  padding: 0.875rem 1.75rem;
+  border-radius: 6px;
+  color: $text-primary;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    @include card-hover;
+    color: $accent;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Back link
+.back-link {
+  @include card;
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    @include card-hover;
+    transform: translateX(-4px);
+  }
+  
+  a {
+    color: $text-secondary;
+    font-weight: 500;
+    
+    &:hover {
+      color: $accent;
+    }
+  }
+}
+
+// Tags/Categories
+.tag, .category {
+  @include card;
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin: 0.3rem;
+  color: $text-secondary;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    @include card-hover;
+    color: $accent;
+  }
+}
+
+// Language tag
+.lang-tag {
+  @include card;
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin: 0.3rem;
+  color: lighten($accent, 10%);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: $accent;
+    color: $accent;
+  }
+}
+
+// Cards
+.card {
+  @include card;
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  transition: all 0.2s ease;
+  @include subtle-shadow;
+  
+  &:hover {
+    @include card-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: $text-primary;
+  }
+  
+  .card-content {
+    color: $text-secondary;
+    line-height: 1.7;
+  }
+}
+
+// Forms
+input[type="text"],
+input[type="email"],
+input[type="search"],
+textarea {
+  @include card;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 6px;
+  background: $bg-card;
+  color: $text-primary;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+  }
+  
+  &::placeholder {
+    color: $text-secondary;
+  }
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $bg-elevated;
+  border-radius: 5px;
+  border: 2px solid $bg-dark;
+  
+  &:hover {
+    background: lighten($bg-elevated, 10%);
+  }
+}
+
+// Selection
+::selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: $text-primary;
+}
+
+::-moz-selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: $text-primary;
+}
+
+// Smooth animations
+* {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+
+// Post excerpt
+.post-excerpt {
+  color: $text-secondary;
+  font-size: 1rem;
+  margin-top: 1rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.post-description {
+  color: $text-secondary;
+  font-size: 1.15rem;
+  font-style: italic;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  @include card;
+  border-radius: 6px;
+  border-left: 3px solid $accent;
+  line-height: 1.7;
+}
+
+// Medium link
+.medium-link {
+  text-align: center;
+  margin-top: 3rem;
+  
+  a {
+    @include card;
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      @include card-hover;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Show more button
+.show-more-container {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.show-more-btn {
+  @include card;
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: $accent;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    @include card-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+}
+
+
+
+// Loading animation
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// Glow effect for accent elements
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+  }
+}
+
+.glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+
+// Responsive design
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+  
+  .w {
+    padding: 2rem 1.25rem;
+  }
+  
+  header, .archive-header {
+    padding: 2rem 1.5rem;
+    
+    h1 {
+      font-size: 2.25rem;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  article {
+    padding: 1.75rem 1.25rem;
+    
+    h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+  
+  .post-filters {
+    padding: 1rem;
+    
+    .filter-group {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .filter-buttons {
+      width: 100%;
+    }
+    
+    .filter-btn {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+  
+  .post-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .post-card {
+    .post-card-image {
+      height: 140px;
+    }
+    
+    .post-card-content {
+      padding: 1rem;
+    }
+    
+    .post-card-title {
+      font-size: 1.05rem;
+    }
+  }
+  
+  p {
+    font-size: 1rem;
+  }
+}

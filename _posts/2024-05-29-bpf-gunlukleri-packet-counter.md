@@ -6,6 +6,7 @@ image: https://networkop.co.uk/img/xdp-xconnect.png
 category: linux
 slug: bpf-ile-packet-counter-uygulamasi
 author: msrexe
+lang: tr
 ---
 
 ![eBPF XDP](https://networkop.co.uk/img/xdp-xconnect.png)

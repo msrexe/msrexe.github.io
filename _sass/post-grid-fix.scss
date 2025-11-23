@@ -1,0 +1,22 @@
+// Alternative flexbox-based grid layout
+.post-grid-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 1.5rem;
+  margin: 2rem 0;
+  
+  .post-card {
+    flex: 1 1 calc(33.333% - 1rem);
+    max-width: calc(33.333% - 1rem);
+    
+    @media (max-width: 1200px) {
+      flex: 1 1 calc(50% - 0.75rem);
+      max-width: calc(50% - 0.75rem);
+    }
+    
+    @media (max-width: 768px) {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
+}

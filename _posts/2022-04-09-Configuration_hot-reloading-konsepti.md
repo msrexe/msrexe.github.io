@@ -6,6 +6,7 @@ image: https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravit
 category: software-design, cloud-native, devops
 slug: configuration-hot-reloading-konsepti
 author: msrexe
+lang: tr
 ---
 
 ![Configuration hot-reloading konsepti](https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ffhf9kxwn1ge92rbtq1cb.jpeg)

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+    <meta name="description" content="Cloud-native web uygulamalarında konfigürasyon yönetiminde kullanılan configuration hot-reloading konseptinden bahsedeceğim.">
+  
+
+  
+    <meta property="og:image" content="https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ffhf9kxwn1ge92rbtq1cb.jpeg" />
+  
+  <meta property="og:site_name" content="blog" />
+  <meta property="og:title" content="blog" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://localhost:4000" />
+
+  <title>Configuration hot-reloading konsepti</title><!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Configuration hot-reloading konsepti" />
+<meta name="author" content="msrexe" />
+<meta property="og:locale" content="tr" />
+<meta name="description" content="Cloud-native web uygulamalarında konfigürasyon yönetiminde kullanılan configuration hot-reloading konseptinden bahsedeceğim." />
+<meta property="og:description" content="Cloud-native web uygulamalarında konfigürasyon yönetiminde kullanılan configuration hot-reloading konseptinden bahsedeceğim." />
+<link rel="canonical" href="http://localhost:4000/configuration-hot-reloading-konsepti.html" />
+<meta property="og:url" content="http://localhost:4000/configuration-hot-reloading-konsepti.html" />
+<meta property="og:site_name" content="blog" />
+<meta property="og:image" content="https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fhf9kxwn1ge92rbtq1cb.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-04-09T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fhf9kxwn1ge92rbtq1cb.jpeg" />
+<meta property="twitter:title" content="Configuration hot-reloading konsepti" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/configuration-hot-reloading-konsepti.html","headline":"Configuration hot-reloading konsepti","dateModified":"2022-04-09T00:00:00+03:00","datePublished":"2022-04-09T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/configuration-hot-reloading-konsepti.html"},"description":"Cloud-native web uygulamalarında konfigürasyon yönetiminde kullanılan configuration hot-reloading konseptinden bahsedeceğim.","@type":"BlogPosting","image":"https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fhf9kxwn1ge92rbtq1cb.jpeg","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body a="dark">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <div class="back-link"><a href="/">← Ana Sayfa</a></div>
+
+<article>
+  <h1>Configuration hot-reloading konsepti</h1><p class="post-meta">
+    <time datetime="2022-04-09 00:00:00 +0300">09 April 2022</time>
+    <span class="read-time">📖 1 min read</span><span class="lang-tag">🌐 TR</span><span class="category">software-design, cloud-native, devops</span></p><p class="post-description">Cloud-native web uygulamalarında konfigürasyon yönetiminde kullanılan configuration hot-reloading konseptinden bahsedeceğim.</p><p><img src="https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ffhf9kxwn1ge92rbtq1cb.jpeg" alt="Configuration hot-reloading konsepti" /></p>
+
+<p>Merhaba, bu yazımda cloud-native web uygulamalarında konfigürasyon yönetiminde kullanılan configuration hot-reloading konseptinden bahsedeceğim. Ufaktan başlayalım.</p>
+
+<p>Öncelikle geleneksel web servislerinde konfigürasyonların nasıl yönetildiğine bakalım.</p>
+<ul>
+  <li>Genelde servis ayağa kalkarken dışarıdaki bir kaynaktan önceden tanımlanmış tüm değerleri alır. Bu kaynak bir environment dosyası, bir configuration manager veya direkt üzerinde çalıştığı işletim sistemi de olabilir.</li>
+  <li>Devamında uygulamamız aldığı değerlerle uygulamada gerekli olan işlemleri yapar ve çalışmaya başlar.</li>
+  <li>Restart atılana kadar konfigürasyon değişiklikleri ile ilgilenmez.</li>
+</ul>
+
+<p>Peki bu sistemde anlık olarak değişiklikleri izleyerek veya dışarıdan tetiklenerek konfigürasyon değiştirme ihtiyacımız neden olsun ?</p>
+
+<p>Bir çok sebebi olabilir ancak en yaygın olanından bahsetmek gerekirse loglama. 
+Sunucunuzda çalışan tüm testlerden geçmiş, sorunsuzca çalıştığına inandığınız bir uygulama düşünün. Bir gün aniden anlam veremediğiniz bir sebepten dolayı istediğimiz gibi çalışmamaya başlıyor. 
+Restart attığınızda ise tekrar çalışır hale geliyor. İlk işiniz logları okumak oluyor ancak loglarda problem görünmüyor çünkü loglama seviyenizden dolayı o an neler olduğuna dair yeterince detay bulamıyorsunuz. 
+Bu büyük bir sistemde oldukça tehlikeli bir durumdur. Pimi çekilmiş bomba gibi gezen bir servisiniz var, her an bozulup diğer servisleri dolayısıyla production ortamını tehlikeye atabilir.</p>
+
+<p>Bunun gibi nadiren karşılaştığınız hatalarda production ortamında mevcut state’i koruyarak yani restart atmadan debugging yapma ihtiyacınız olur. İşte bu anlarda uygulamayı kapatmadan loglama seviyenizi değiştirmek yani hot-reloading için yardımımıza bu pattern yetişiyor.</p>
+
+<p>Aşağıdaki basit web-server uygulamasında bu yapının nasıl çalıştığını görebilirsiniz.</p>
+
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--jDUMbh8T--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kihettcgf92l75rfqf94.gif" alt="Configuration hot-reloading örnek" /></p>
+
+<p>Örnek uygulamanın kodlarına <a href="https://github.com/msrexe/configuration-hot-reload">buradan</a> ulaşabilirsiniz. Başka bir yazıda görüşmek üzere…</p>
+
+<h6 id="kaynak-justin-garrison-kris-nova---cloud-native-infrastructure-patterns-for-scalable-infrastructure-and-applications-in-a-dynamic-environment">Kaynak: Justin Garrison, Kris Nova - Cloud Native Infrastructure Patterns for Scalable Infrastructure and Applications in a Dynamic Environment</h6>
+</article>
+      </div>
+    </main>
+    
+    <!-- Post filter script -->
+    <script type="text/javascript" src="/assets/js/post-filter.js"></script>
+  </body>
+</html>

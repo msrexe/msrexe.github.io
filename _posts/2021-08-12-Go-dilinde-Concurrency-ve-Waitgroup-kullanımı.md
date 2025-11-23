@@ -6,6 +6,7 @@ image: https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.
 category: go
 slug: go-dilinde-concurrency-ve-waitgroup-kullanimi
 author: msrexe
+lang: tr
 ---
 
 ![Go dilinde Concurrency ve WaitGroup kullanımı](https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png)

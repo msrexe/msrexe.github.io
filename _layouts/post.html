@@ -2,14 +2,40 @@
 layout: default
 ---
 
-{%-include back_link.html-%}
+<div class="back-link">
+  {%-include back_link.html-%}
+</div>
 
 <article>
+  <h1>{{ page.title }}</h1>
+  
+  {%- assign words = content | number_of_words -%}
+  {%- assign read_time = words | divided_by: 200 -%}
+  {%- if read_time == 0 -%}
+    {%- assign read_time = 1 -%}
+  {%- endif -%}
+  
   <p class="post-meta">
     <time datetime="{{ page.date }}">{{ page.date | date: site.theme_config.date_format }}</time>
+    <span class="read-time">📖 {{ read_time }} min read</span>
+    {%- if page.lang -%}
+      <span class="lang-tag">🌐 {{ page.lang | upcase }}</span>
+    {%- endif -%}
+    {%- if page.category -%}
+      <span class="category">{{ page.category }}</span>
+    {%- endif -%}
   </p>
   
-  <h1>{{ page.title }}</h1>
+  {%- if page.description -%}
+    <p class="post-description">{{ page.description }}</p>
+  {%- endif -%}
 
   {{ content }}
+  
+  {%- if page.medium_url -%}
+    <hr>
+    <p class="medium-link">
+      <a href="{{ page.medium_url }}" target="_blank" rel="noopener">📝 Read on Medium</a>
+    </p>
+  {%- endif -%}
 </article>

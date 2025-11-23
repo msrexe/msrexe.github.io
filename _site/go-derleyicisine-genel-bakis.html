@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+    <meta name="description" content="Go dilinde compiler hakkında genel bilgiler ve compiler'ın hızlı çalışmasını sağlayan mekanizmalar.">
+  
+
+  
+    <meta property="og:image" content="https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png" />
+  
+  <meta property="og:site_name" content="blog" />
+  <meta property="og:title" content="blog" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://localhost:4000" />
+
+  <title>Go derleyicisine genel bakış</title><!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Go derleyicisine genel bakış" />
+<meta name="author" content="msrexe" />
+<meta property="og:locale" content="tr" />
+<meta name="description" content="Go dilinde compiler hakkında genel bilgiler ve compiler’ın hızlı çalışmasını sağlayan mekanizmalar." />
+<meta property="og:description" content="Go dilinde compiler hakkında genel bilgiler ve compiler’ın hızlı çalışmasını sağlayan mekanizmalar." />
+<link rel="canonical" href="http://localhost:4000/go-derleyicisine-genel-bakis.html" />
+<meta property="og:url" content="http://localhost:4000/go-derleyicisine-genel-bakis.html" />
+<meta property="og:site_name" content="blog" />
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-23T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png" />
+<meta property="twitter:title" content="Go derleyicisine genel bakış" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/go-derleyicisine-genel-bakis.html","headline":"Go derleyicisine genel bakış","dateModified":"2023-09-23T00:00:00+03:00","datePublished":"2023-09-23T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/go-derleyicisine-genel-bakis.html"},"description":"Go dilinde compiler hakkında genel bilgiler ve compiler’ın hızlı çalışmasını sağlayan mekanizmalar.","@type":"BlogPosting","image":"https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body a="dark">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <div class="back-link"><a href="/">← Ana Sayfa</a></div>
+
+<article>
+  <h1>Go derleyicisine genel bakış</h1><p class="post-meta">
+    <time datetime="2023-09-23 00:00:00 +0300">23 September 2023</time>
+    <span class="read-time">📖 3 min read</span><span class="lang-tag">🌐 TR</span><span class="category">go</span></p><p class="post-description">Go dilinde compiler hakkında genel bilgiler ve compiler'ın hızlı çalışmasını sağlayan mekanizmalar.</p><p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png" alt="Go derleyicisine genel bakış" /></p>
+
+<p>Selamlar bu yazımızda Go dilinde compiler hakkında konuşacağız. Go çalışma ve derleme hızı ile öne çıkan bir dil. Peki Go compiler’ının bu performansı sağlayan mekanizması nedir, nasıl çalışır? Hadi bunun nedenlerine girmeden önce kısaca Go compiler yapısını ve compile adımlarını inceleyelim.</p>
+
+<p><b>Go derleyicisi, Go kodunu makine diline derlemekten sorumludur. Temel olarak 4 aşamadan oluşur:</b>
+<strong>1. Ayrıştırma:</strong> Kod lexemlere (sözcük) ve söz dizimsel yapılara ayrıştırılır. Böylece kodun anlamı çözümlenir.
+<strong>2. Tip denetimi:</strong> Değişkenlerin ve ifadelerin doğru veri tiplerine sahip olup olmadığı kontrol edilir.
+<strong>3. Ara temsil oluşturma:</strong> Derleyicinin kendi soyut söz dizimi ağacı (AST) oluşturulur. Bu soyut dil ile kod üzerinde işlem yapılabilir.
+<strong>4. SSA oluşturma:</strong> Soyut söz dizimi, SSA formuna dönüştürülür.
+<strong>5. Makine kodu üretimi:</strong> Hedef işlemci mimarisine özgü optimizasyonlar uygulanır ve nihai makine kodu üretilir.</p>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*P0P3NdFZsiDJQ5ZLp-nc6w.png" alt="Go compile adımları" /></p>
+
+<p><strong>SSA Nedir?</strong></p>
+
+<p>SSA (Static Single Assignment), her değişkenin tam olarak bir kez atanmasını ve kullanılmadan önce tanımlanmasını gerektiren bir ara temsil biçimidir.</p>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*atcd1AttViKSP07RNIzeMg.png" alt="SSA" /></p>
+
+<p>Normal kodda bir değişken birden fazla kez atanabilir:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="m">2</span> 
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="m">1</span>
+</code></pre></div></div>
+<p>SSA formunda ise her atama yeni bir değişken versiyonu oluşturur:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x1</span> <span class="o">=</span> <span class="m">2</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<p>Böylece değişkenin her kullanımının hangi tanımdan geldiği netleşir. Bu da optimizasyonlar için çok faydalıdır.</p>
+
+<p>Bu temel bilgileri aldıktan sonra Go compiler’ının avantajlarına bakabiliriz.</p>
+
+<p><strong>1- Sade ve Anlaşılır Söz Dizimi</strong>
+Go dili, C gibi geleneksel sistem dillerine benzer sade ve anlaşılır bir sözdizimine sahiptir. Karmaşık ve çok fazla özelliği olmayan bu sözdizimi, compiler’ın işini oldukça kolaylaştırır. Compiler, kaynak kodu çok daha hızlı bir şekilde ayrıştırabilir ve çözümleyebilir.</p>
+
+<p><strong>2- Hızlı Lexer ve Parser</strong>
+Go derleyicisi, lexing ve parsing işlemlerini çok hızlı bir şekilde gerçekleştirebilmektedir.</p>
+
+<p>Lexer, geleneksel deterministik sonlu otomat (DFA) yerine daha basit ve hızlı çalışan bir Regular Expression tabanlı lexing algoritması kullanır. Böylece token’lara ayırma işlemi çok daha hızlı tamamlanır.</p>
+
+<p>Parser ise Pratt ayrıştırıcı olarak bilinen özel bir top-down ayrıştırma algoritmasıyla çalışır. Bu algoritma, operator önceliği ve associativity kurallarını kod içine gömülü şekilde barındırır. Böylece parsing süreci önemli ölçüde hızlanır.
+Ayrıca parser, kaynak koddaki hataları eşzamanlı olarak bulmaya çalışır. Tüm dosyanın ayrıştırılmasını beklemez. Bu da parser’ın çok daha erken sonuç üretmesini sağlar.</p>
+
+<p>Lexer ve parser’daki bu optimizasyonlar sayesinde Go derleyicisi, geleneksel derleyicilere göre çok daha hızlı bir şekilde kaynak kodu ayrıştırabilmektedir.</p>
+
+<p><strong>3- İyi Tasarlanmış Tip Sistemi</strong>
+Compile işleminde tip denetimi de önemli bir adımdır. Go’nun iyi tasarlanmış ve tutarlı tip sistemi, bu denetimleri çok hızlı yapabilmesini sağlar. Ayrıca tip çıkarımı da developer’ın iş yükünü azaltır.</p>
+
+<p><strong>4- Statik Tipleme</strong>
+Go statik bir dil olduğu için, birçok tip denetimi derleme zamanında yapılabilmektedir. Bu da programa hız kazandırır. Dinamik dillerde bu denetimler çalışma zamanında (runtime) yapılır.</p>
+
+<p><strong>5- SSA Tabanlı Optimizasyon</strong>
+SSA sayesinde kod üzerinde aşağıdaki gibi oldukça etkili optimizasyonlar uygulanabilmektedir.</p>
+
+<ul>
+  <li><strong>Ölü kod eleme:</strong> Kullanılmayan kod blokları temizlenir.</li>
+  <li><strong>Değer aralığı yayılımı:</strong> Değişkenin alabileceği değerler önceden hesaplanır.</li>
+  <li><strong>Koşullu sabit yayılımı:</strong> Bazı koşulların her zaman doğru olacağı tespit edilir.</li>
+  <li><strong>Aritmetik optimizasyon:</strong> Pahalı işlemler daha ucuzlarıyla değiştirilir. Örneğin çarpma, kaydırma ile.</li>
+  <li><strong>Kayıt tahsisi:</strong> İşlemcide sınırlı sayıda kayıt olduğundan, bunlar en verimli şekilde kullanılır.</li>
+</ul>
+
+<p><strong><em>SSA</em></strong> hakkında detaylı bilgiye <a href="https://mattermost.com/blog/diving-into-static-single-assignment-with-the-go-compiler/">buradan</a> ulaşabilirsiniz.</p>
+
+<p><strong>6- Basitlik ve Tutarlılık</strong>
+Go dili, C diline benzer şekilde basit ve tutarlı bir yapı sunar. Karmaşık özellikler yerine temel mekanizmaları iyi yapmaya odaklanmıştır. Bu da derleyicinin işini kolaylaştırır.</p>
+
+<p><strong>Sonuç</strong>
+Genel olarak bakacak olursak Go compiler’ının sağladığı hızın ardındaki faktörler; sade ve anlaşılır sözdizimi, hızlı lexer/parser, iyi tasarlanmış tip sistemi, SSA tabanlı optimizasyonlar, statik tipleme, basitlik ve hızlı derleme süreleridir.</p>
+
+<p>Bu özellikler sayesinde Go, C/C++ gibi geleneksel sistem dillerinin hızına yaklaşırken, derleme hızı, type-safety, otomatik bellek yönetimi gibi modern dillerin avantajlarını da sunabilmektedir. Ayrıca büyük projelerde bile derleme ve bağlantı işlemleri çok kısa sürmesi geliştiricinin en değerli kaynağından yani zamandan tasarruf etmesini sağlar.</p>
+
+<p>Kısaca Go compiler’dan bahsetmeye çalıştım, umarım faydalı olmuştur. Geri bildirimlerinizi Twitter üzerinden yapabilirsiniz.</p>
+</article>
+      </div>
+    </main>
+    
+    <!-- Post filter script -->
+    <script type="text/javascript" src="/assets/js/post-filter.js"></script>
+  </body>
+</html>

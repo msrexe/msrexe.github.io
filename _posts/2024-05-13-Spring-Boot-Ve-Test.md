@@ -6,6 +6,7 @@ image: https://miro.medium.com/v2/resize:fit:720/format:webp/1*2nsd5m6n8XPb9fegx
 category: java
 slug: spring-boot-ve-test
 author: msrexe
+lang: tr
 ---
 
 ![Spring Boot ve Test](https://miro.medium.com/v2/resize:fit:720/format:webp/1*2nsd5m6n8XPb9fegxMVwAg.png)

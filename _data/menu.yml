@@ -2,9 +2,8 @@
 # https://github.com/riggraz/no-style-please#customize-the-menu
 
 entries:
-  - title: posts
-    post_list:
-      limit: 5
+  - post_list:
+      limit: 6
       show_more: true
-      show_more_text: See more posts...
-      show_more_url: archive.html
+      show_more_text: See all posts →
+      show_more_url: /archive.html

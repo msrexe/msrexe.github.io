@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+    <meta name="description" content="Go'da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup'ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz.">
+  
+
+  
+    <meta property="og:image" content="https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png" />
+  
+  <meta property="og:site_name" content="blog" />
+  <meta property="og:title" content="blog" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://localhost:4000" />
+
+  <title>Go dilinde Concurrency ve Waitgroup kullanımı</title><!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Go dilinde Concurrency ve Waitgroup kullanımı" />
+<meta name="author" content="msrexe" />
+<meta property="og:locale" content="tr" />
+<meta name="description" content="Go’da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup’ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz." />
+<meta property="og:description" content="Go’da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup’ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz." />
+<link rel="canonical" href="http://localhost:4000/go-dilinde-concurrency-ve-waitgroup-kullanimi.html" />
+<meta property="og:url" content="http://localhost:4000/go-dilinde-concurrency-ve-waitgroup-kullanimi.html" />
+<meta property="og:site_name" content="blog" />
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-08-12T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png" />
+<meta property="twitter:title" content="Go dilinde Concurrency ve Waitgroup kullanımı" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/go-dilinde-concurrency-ve-waitgroup-kullanimi.html","headline":"Go dilinde Concurrency ve Waitgroup kullanımı","dateModified":"2021-08-12T00:00:00+03:00","datePublished":"2021-08-12T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/go-dilinde-concurrency-ve-waitgroup-kullanimi.html"},"description":"Go’da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup’ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz.","@type":"BlogPosting","image":"https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body a="dark">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <div class="back-link"><a href="/">← Ana Sayfa</a></div>
+
+<article>
+  <h1>Go dilinde Concurrency ve Waitgroup kullanımı</h1><p class="post-meta">
+    <time datetime="2021-08-12 00:00:00 +0300">12 August 2021</time>
+    <span class="read-time">📖 1 min read</span><span class="lang-tag">🌐 TR</span><span class="category">go</span></p><p class="post-description">Go'da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup'ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz.</p><p><img src="https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png" alt="Go dilinde Concurrency ve WaitGroup kullanımı" /></p>
+
+<p>Merhaba, bu yazımda dilim döndüğünce “Go dilinde WaitGroup’lar ne işe yarar ve nasıl kullanabiliriz ?” sorusunu yanıtlayacağım. Ufaktan başlayalım.</p>
+
+<p>Öncelikle Go’da bize concurrent (eşzamanlı) fonksiyonlar çalıştırma imkanı veren goroutine’den bahsedelim. Goroutine işletim sistemi seviyesinde, düşük maliyetli, thread benzeri yapılar oluşturmamızı sağlayan Go dilinin sunduğu nimetlerden biridir. Ve bunu kullanmak için de tek yapmanız gereken eşzamanlı hale getirmek istediğiniz işlemlerin başına “go” ifadesini eklemek.
+Aşağıdaki görselde basit bir örnek verilmiştir.</p>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*hCFjoWx-Yq9kEW5pcCtmEQ.png" alt="Örnek 1" /></p>
+
+<p>Bu koddan beklenen konsola sırası farketmeksizin “app started”, “concurrent func 1”, “concurrent func 2”, “app finished” yazmasıdır. Bakalım öyle mi oluyor.</p>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:546/format:webp/1*Ih_Oc0k3Rhn-TfF10oUxcQ.png" alt="Örnek 2" /></p>
+
+<p>Gördüğünüz gibi bizim func1() ve func2() fonksiyonlarımız hiç çalışmamış bile. Bunun sebebi bizim hali hazırda çalışan main goroutine’imizin haricinde 2 goroutine daha başlatmamış olmamız. Ancak bizim main goroutine’imiz biz aksini söylemediğimiz sürece sadece kendi işini bitirip, yani ekrana “app started” ve “app finished” yazıp tamamlanacak ve diğer goroutinelerin tamamlanmasını beklemeyecek. Peki bunu çözmek için ne yapabiliriz ? İki yolumuz var:</p>
+
+<h4 id="1--timesleep-kullanmak">1- time.Sleep() kullanmak</h4>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*zB4maCiFhqXf8lW3GR6GhQ.png" alt="Örnek 3" /></p>
+
+<p>Koda time.Sleep() ekleyerek main goroutine’imizin 1 saniye uyumasını sağladık. Ve bu uyku esnasında diğer goroutine’ler işini tamamladı ve ortaya şöyle bir sonuç çıktı.</p>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:618/format:webp/1*j38ENSFqlOcYHO40ITQ0nQ.png" alt="Örnek 4" /></p>
+
+<p>Evet istediğimiz şeyi aldık. Tüm goroutine’ler üstüne düşeni yaptı ve uygulamamız tamamlandı. Ancak burada sıkıntılı bir durum ortaya çıkıyor. Milisaniyelerin bile önemli olduğu uygulamalarda bir goroutine’i 1 saniye boyunca uyutmak oldukça ciddi bir verim kaybı olurdu. İşte bu noktada yardımımıza asıl konumuz olan WaitGroup yetişiyor.</p>
+
+<h4 id="2--syncwaitgroup-kullanmak">2- sync.WaitGroup kullanmak</h4>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*sxsZfX76PEnCVjGJrxtRGg.png" alt="Örnek 5" /></p>
+
+<p>Kodu açıklamak gerekirse başta “wg” adında bir WaitGroup tanımladık. Daha sonra wg.Add(2) diyerek 2 adet goroutine oluşturacağımızı söyledik ve WaitGroup’umuzun pointer’ını func1 ve func2 içerisine parametre olarak gönderdik. Burası önemli, pointer olarak göndermezseniz WaitGroup beklediği uyandırma sinyallerini alamaz ve uygulamanız şöyle bir hata verir.</p>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*EPtB0M25K0OzJIa9P2TDJA.png" alt="Örnek 6" /></p>
+
+<p>Her neyse tüm adımları doğru bir şekilde yazdıktan sonra yapmamız gereken şey wg.Wait() diyerek main goroutine’imizi diğer fonksiyonlardan “done” sinyali gelene kadar uyutmak olacaktır. Böylece uygulamamız sorunsuz ve gecikme yaşamadan çalışacaktır.</p>
+
+<p><img src="https://miro.medium.com/v2/resize:fit:626/format:webp/1*Owmanw8DxmpJwWuVDYi22g.png" alt="Örnek 7" /></p>
+
+<p>Böylelikle benim paylaştığım ilk içeriğin sonuna geldik. Umarım faydalı olabilmişimdir. Geri bildirimleriniz veya sorularınız için Twitter üzerinden bana ulaşabilirsiniz.</p>
+</article>
+      </div>
+    </main>
+    
+    <!-- Post filter script -->
+    <script type="text/javascript" src="/assets/js/post-filter.js"></script>
+  </body>
+</html>

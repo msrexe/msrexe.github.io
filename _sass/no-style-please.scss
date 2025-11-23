@@ -1,96 +1,230 @@
-// -------------- THEME SWITCHER -------------- //
-@mixin dark-appearance {
-  filter: invert(1);
-  img {
-    filter: invert(1);
+// -------------- FLAT DARK THEME -------------- //
 
-    &.ioda { filter: invert(0); }
-  }
+// Color palette
+$bg-dark: #0a0a0a;
+$bg-elevated: #1a1a1a;
+$bg-card: #141414;
+$text-primary: #f5f5f5;
+$text-secondary: #999999;
+$accent: #00d4ff;
+$accent-hover: #00b8e6;
+$border-color: rgba(255, 255, 255, 0.08);
+
+// Flat design mixins
+@mixin card {
+  background: $bg-card;
+  border: 1px solid $border-color;
 }
 
-body[a="dark"] { @include dark-appearance; }
-
-
-@media (prefers-color-scheme: dark) {
-  body[a="auto"] { @include dark-appearance; }
+@mixin card-hover {
+  background: lighten($bg-card, 2%);
+  border-color: rgba(0, 212, 255, 0.3);
 }
-// -------------------------------------------- //
 
-// bg color is also needed in html in order to
-// block body's background propagation
-// see: https://stackoverflow.com/a/61265706
+@mixin subtle-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
 
-html, body { background-color: rgb(47, 32, 88); }
+html, body { 
+  background-color: $bg-dark;
+}
 
 html { height: 100%; }
 
 body {
-  a { color: #fe8093; }
-  color: white;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  font-size: 18px;
-  line-height: 1.6;
+  color: $text-primary;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
   margin: 0;
   min-height: 100%;
   overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  a { 
+    color: $accent;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: $accent-hover;
+    }
+  }
 }
 
-.post-meta { text-align: right; }
+.post-meta { 
+  text-align: right;
+  color: $text-secondary;
+  font-size: 0.9rem;
+}
 
-h2, h3, h4, h5, h6 { margin-top: 3rem; }
+h1, h2, h3, h4, h5, h6 { 
+  margin-top: 3rem;
+  color: $text-primary;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
-hr { margin: 2rem 0; }
+h1 {
+  font-size: 2.75rem;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+}
 
-p { margin: 1rem 0; }
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
 
-li { margin: 0.4rem 0; }
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
 
-*:target { background: yellow; }
+hr { 
+  margin: 3rem 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, $text-secondary, transparent);
+}
+
+p { 
+  margin: 1.5rem 0;
+  color: $text-primary;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+li { 
+  margin: 0.6rem 0;
+  color: $text-primary;
+}
+
+*:target { 
+  background: rgba(0, 212, 255, 0.2);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
 
 .w {
-  max-width: 640px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 4rem 3rem;
+  
+  @media (max-width: 1500px) {
+    max-width: 1200px;
+  }
+  
+  @media (max-width: 1200px) {
+    max-width: 100%;
+    padding: 3rem 2rem;
+  }
 }
 
-hr {
-  text-align: center;
-  border: 0;
-
-  &:before { content: '/////' }
-  &:after { content: attr(data-content) '/////' }
+// Tables
+table { 
+  width: 100%;
+  margin: 2rem 0;
+  @include card;
+  border-radius: 8px;
+  overflow: hidden;
+  @include subtle-shadow;
 }
-
-table { width: 100%; }
 
 table, th, td {
-  border: thin solid black;
+  border: 1px solid $border-color;
   border-collapse: collapse;
-  padding: 0.4rem;
+  padding: 1rem;
 }
 
+th {
+  background: $bg-elevated;
+  color: $accent;
+  font-weight: 600;
+  text-align: left;
+}
+
+td {
+  color: $text-primary;
+}
+
+// Code blocks
 code {
-  color: white;
-  background: black;
+  color: $accent;
+  background: $bg-elevated;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+  font-weight: 500;
+  border: 1px solid $border-color;
 }
 
-div.highlighter-rouge code {
-  display: block;
+div.highlighter-rouge {
+  @include card;
+  border-radius: 8px;
+  margin: 2rem 0;
+  overflow: hidden;
+  @include subtle-shadow;
+  
+  code {
+    display: block;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    padding: 1.5rem;
+    background: $bg-elevated;
+    color: $text-primary;
+    line-height: 1.7;
+    border: none;
+  }
+}
+
+pre {
+  @include card;
+  border-radius: 8px;
+  padding: 1.5rem;
   overflow-x: auto;
-  white-space: pre-wrap;
-  padding: 1rem;
+  @include subtle-shadow;
+  
+  code {
+    background: transparent;
+    padding: 0;
+    border: none;
+  }
 }
 
+// Blockquotes
 blockquote {
+  @include card;
   font-style: italic;
-  border: thin solid black;
-  padding: 1rem;
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  border-left: 3px solid $accent;
+  color: $text-secondary;
+  @include subtle-shadow;
 
-  p { margin: 0; }
+  p { 
+    margin: 0.5rem 0;
+    color: $text-secondary;
+    font-size: 1.05rem;
+  }
 }
 
+// Images
 img {
   max-width: 100%;
   display: block;
-  margin: 0 auto;
+  margin: 2.5rem auto;
+  border-radius: 8px;
+  @include subtle-shadow;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
 }
