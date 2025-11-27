@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="blog" />
   <meta property="og:title" content="blog" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://localhost:4000" />
+  <meta property="og:url" content="https://msrexe.github.io" />
 
   <title>Go derleyicisine genel bakış</title><!-- Begin Jekyll SEO tag v2.7.1 -->
 <meta name="generator" content="Jekyll v3.9.5" />
@@ -22,8 +22,8 @@
 <meta property="og:locale" content="tr" />
 <meta name="description" content="Go dilinde compiler hakkında genel bilgiler ve compiler’ın hızlı çalışmasını sağlayan mekanizmalar." />
 <meta property="og:description" content="Go dilinde compiler hakkında genel bilgiler ve compiler’ın hızlı çalışmasını sağlayan mekanizmalar." />
-<link rel="canonical" href="http://localhost:4000/go-derleyicisine-genel-bakis.html" />
-<meta property="og:url" content="http://localhost:4000/go-derleyicisine-genel-bakis.html" />
+<link rel="canonical" href="https://msrexe.github.io/go-derleyicisine-genel-bakis.html" />
+<meta property="og:url" content="https://msrexe.github.io/go-derleyicisine-genel-bakis.html" />
 <meta property="og:site_name" content="blog" />
 <meta property="og:image" content="https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png" />
 <meta property="og:type" content="article" />
@@ -32,9 +32,9 @@
 <meta property="twitter:image" content="https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png" />
 <meta property="twitter:title" content="Go derleyicisine genel bakış" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/go-derleyicisine-genel-bakis.html","headline":"Go derleyicisine genel bakış","dateModified":"2023-09-23T00:00:00+03:00","datePublished":"2023-09-23T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/go-derleyicisine-genel-bakis.html"},"description":"Go dilinde compiler hakkında genel bilgiler ve compiler’ın hızlı çalışmasını sağlayan mekanizmalar.","@type":"BlogPosting","image":"https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png","@context":"https://schema.org"}</script>
+{"url":"https://msrexe.github.io/go-derleyicisine-genel-bakis.html","headline":"Go derleyicisine genel bakış","dateModified":"2023-09-23T00:00:00+03:00","datePublished":"2023-09-23T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://msrexe.github.io/go-derleyicisine-genel-bakis.html"},"description":"Go dilinde compiler hakkında genel bilgiler ve compiler’ın hızlı çalışmasını sağlayan mekanizmalar.","@type":"BlogPosting","image":"https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link type="application/atom+xml" rel="alternate" href="https://msrexe.github.io/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,11 +46,11 @@
 <body a="dark">
     <main class="page-content" aria-label="Content">
       <div class="w">
-        <div class="back-link"><a href="/">← Ana Sayfa</a></div>
+        <div class="back-link"><a href="/">← Home</a></div>
 
 <article>
   <h1>Go derleyicisine genel bakış</h1><p class="post-meta">
-    <time datetime="2023-09-23 00:00:00 +0300">23 September 2023</time>
+    <time datetime="2023-09-23 00:00:00 +0300">September 23, 2023</time>
     <span class="read-time">📖 3 min read</span><span class="lang-tag">🌐 TR</span><span class="category">go</span></p><p class="post-description">Go dilinde compiler hakkında genel bilgiler ve compiler'ın hızlı çalışmasını sağlayan mekanizmalar.</p><p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*fm_2f3N7U64ykEIJmoLqaQ.png" alt="Go derleyicisine genel bakış" /></p>
 
 <p>Selamlar bu yazımızda Go dilinde compiler hakkında konuşacağız. Go çalışma ve derleme hızı ile öne çıkan bir dil. Peki Go compiler’ının bu performansı sağlayan mekanizması nedir, nasıl çalışır? Hadi bunun nedenlerine girmeden önce kısaca Go compiler yapısını ve compile adımlarını inceleyelim.</p>

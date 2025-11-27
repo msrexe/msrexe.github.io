@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="blog" />
   <meta property="og:title" content="blog" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://localhost:4000" />
+  <meta property="og:url" content="https://msrexe.github.io" />
 
   <title>Go dilinde Concurrency ve Waitgroup kullanımı</title><!-- Begin Jekyll SEO tag v2.7.1 -->
 <meta name="generator" content="Jekyll v3.9.5" />
@@ -22,8 +22,8 @@
 <meta property="og:locale" content="tr" />
 <meta name="description" content="Go’da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup’ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz." />
 <meta property="og:description" content="Go’da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup’ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz." />
-<link rel="canonical" href="http://localhost:4000/go-dilinde-concurrency-ve-waitgroup-kullanimi.html" />
-<meta property="og:url" content="http://localhost:4000/go-dilinde-concurrency-ve-waitgroup-kullanimi.html" />
+<link rel="canonical" href="https://msrexe.github.io/go-dilinde-concurrency-ve-waitgroup-kullanimi.html" />
+<meta property="og:url" content="https://msrexe.github.io/go-dilinde-concurrency-ve-waitgroup-kullanimi.html" />
 <meta property="og:site_name" content="blog" />
 <meta property="og:image" content="https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png" />
 <meta property="og:type" content="article" />
@@ -32,9 +32,9 @@
 <meta property="twitter:image" content="https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png" />
 <meta property="twitter:title" content="Go dilinde Concurrency ve Waitgroup kullanımı" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/go-dilinde-concurrency-ve-waitgroup-kullanimi.html","headline":"Go dilinde Concurrency ve Waitgroup kullanımı","dateModified":"2021-08-12T00:00:00+03:00","datePublished":"2021-08-12T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/go-dilinde-concurrency-ve-waitgroup-kullanimi.html"},"description":"Go’da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup’ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz.","@type":"BlogPosting","image":"https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png","@context":"https://schema.org"}</script>
+{"url":"https://msrexe.github.io/go-dilinde-concurrency-ve-waitgroup-kullanimi.html","headline":"Go dilinde Concurrency ve Waitgroup kullanımı","dateModified":"2021-08-12T00:00:00+03:00","datePublished":"2021-08-12T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://msrexe.github.io/go-dilinde-concurrency-ve-waitgroup-kullanimi.html"},"description":"Go’da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup’ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz.","@type":"BlogPosting","image":"https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link type="application/atom+xml" rel="alternate" href="https://msrexe.github.io/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,11 +46,11 @@
 <body a="dark">
     <main class="page-content" aria-label="Content">
       <div class="w">
-        <div class="back-link"><a href="/">← Ana Sayfa</a></div>
+        <div class="back-link"><a href="/">← Home</a></div>
 
 <article>
   <h1>Go dilinde Concurrency ve Waitgroup kullanımı</h1><p class="post-meta">
-    <time datetime="2021-08-12 00:00:00 +0300">12 August 2021</time>
+    <time datetime="2021-08-12 00:00:00 +0300">August 12, 2021</time>
     <span class="read-time">📖 1 min read</span><span class="lang-tag">🌐 TR</span><span class="category">go</span></p><p class="post-description">Go'da Concurrency ve WaitGroup kullanımından bahsettiğimiz bu yazıda, WaitGroup'ların ne işe yaradığını ve nasıl kullanıldığını öğreneceksiniz.</p><p><img src="https://miro.medium.com/v2/resize:fit:640/format:webp/0*g3r6gLwL2t7fv0Sm.png" alt="Go dilinde Concurrency ve WaitGroup kullanımı" /></p>
 
 <p>Merhaba, bu yazımda dilim döndüğünce “Go dilinde WaitGroup’lar ne işe yarar ve nasıl kullanabiliriz ?” sorusunu yanıtlayacağım. Ufaktan başlayalım.</p>

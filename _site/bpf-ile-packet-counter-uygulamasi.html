@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="blog" />
   <meta property="og:title" content="blog" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://localhost:4000" />
+  <meta property="og:url" content="https://msrexe.github.io" />
 
   <title>BPF Günlükleri: Sıfırdan Packet Counter Uygulaması</title><!-- Begin Jekyll SEO tag v2.7.1 -->
 <meta name="generator" content="Jekyll v3.9.5" />
@@ -22,8 +22,8 @@
 <meta property="og:locale" content="tr" />
 <meta name="description" content="Bu yazıda, eBPF yapısını kullanarak sıfırdan bir paket sayacı uygulaması geliştireceğiz." />
 <meta property="og:description" content="Bu yazıda, eBPF yapısını kullanarak sıfırdan bir paket sayacı uygulaması geliştireceğiz." />
-<link rel="canonical" href="http://localhost:4000/bpf-ile-packet-counter-uygulamasi.html" />
-<meta property="og:url" content="http://localhost:4000/bpf-ile-packet-counter-uygulamasi.html" />
+<link rel="canonical" href="https://msrexe.github.io/bpf-ile-packet-counter-uygulamasi.html" />
+<meta property="og:url" content="https://msrexe.github.io/bpf-ile-packet-counter-uygulamasi.html" />
 <meta property="og:site_name" content="blog" />
 <meta property="og:image" content="https://networkop.co.uk/img/xdp-xconnect.png" />
 <meta property="og:type" content="article" />
@@ -32,9 +32,9 @@
 <meta property="twitter:image" content="https://networkop.co.uk/img/xdp-xconnect.png" />
 <meta property="twitter:title" content="BPF Günlükleri: Sıfırdan Packet Counter Uygulaması" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/bpf-ile-packet-counter-uygulamasi.html","headline":"BPF Günlükleri: Sıfırdan Packet Counter Uygulaması","dateModified":"2024-05-29T00:00:00+03:00","datePublished":"2024-05-29T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/bpf-ile-packet-counter-uygulamasi.html"},"description":"Bu yazıda, eBPF yapısını kullanarak sıfırdan bir paket sayacı uygulaması geliştireceğiz.","@type":"BlogPosting","image":"https://networkop.co.uk/img/xdp-xconnect.png","@context":"https://schema.org"}</script>
+{"url":"https://msrexe.github.io/bpf-ile-packet-counter-uygulamasi.html","headline":"BPF Günlükleri: Sıfırdan Packet Counter Uygulaması","dateModified":"2024-05-29T00:00:00+03:00","datePublished":"2024-05-29T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://msrexe.github.io/bpf-ile-packet-counter-uygulamasi.html"},"description":"Bu yazıda, eBPF yapısını kullanarak sıfırdan bir paket sayacı uygulaması geliştireceğiz.","@type":"BlogPosting","image":"https://networkop.co.uk/img/xdp-xconnect.png","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link type="application/atom+xml" rel="alternate" href="https://msrexe.github.io/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,11 +46,11 @@
 <body a="dark">
     <main class="page-content" aria-label="Content">
       <div class="w">
-        <div class="back-link"><a href="/">← Ana Sayfa</a></div>
+        <div class="back-link"><a href="/">← Home</a></div>
 
 <article>
   <h1>BPF Günlükleri: Sıfırdan Packet Counter Uygulaması</h1><p class="post-meta">
-    <time datetime="2024-05-29 00:00:00 +0300">29 May 2024</time>
+    <time datetime="2024-05-29 00:00:00 +0300">May 29, 2024</time>
     <span class="read-time">📖 4 min read</span><span class="lang-tag">🌐 TR</span><span class="category">linux</span></p><p class="post-description">Bu yazıda, eBPF yapısını kullanarak sıfırdan bir paket sayacı uygulaması geliştireceğiz.</p><p><img src="https://networkop.co.uk/img/xdp-xconnect.png" alt="eBPF XDP" /></p>
 
 <p>Bu yazıda, eBPF yapısını kullanarak sıfırdan bir paket sayacı uygulaması geliştireceğiz. Uygulamamızı C dili ile yazdıktan sonra Cilium’un <code class="language-plaintext highlighter-rouge">bpf2go</code> aracı ile derleyeceğiz. Sonrasında uygulamamızı kernel’a atacağımız bir Go kodu ile yazımızı tamamlayacağız. Şimdi malzeme listesiyle başlayalım.</p>

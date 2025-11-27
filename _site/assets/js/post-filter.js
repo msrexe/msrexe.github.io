@@ -4,10 +4,10 @@
   
   // Wait for DOM to be ready
   document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const postCards = document.querySelectorAll('.post-card');
+    const filterButtons = document.querySelectorAll('.filter');
+    const posts = document.querySelectorAll('.post');
     
-    if (filterButtons.length === 0 || postCards.length === 0) {
+    if (filterButtons.length === 0 || posts.length === 0) {
       return;
     }
     
@@ -23,32 +23,32 @@
         this.classList.add('active');
         
         // Filter posts
-        postCards.forEach(function(card) {
+        posts.forEach(function(post) {
           if (filter === 'all') {
-            card.classList.remove('hidden');
+            post.style.display = 'block';
           } else if (filter.startsWith('lang-')) {
             const lang = filter.replace('lang-', '');
-            if (card.getAttribute('data-lang') === lang) {
-              card.classList.remove('hidden');
+            if (post.getAttribute('data-lang') === lang) {
+              post.style.display = 'block';
             } else {
-              card.classList.add('hidden');
+              post.style.display = 'none';
             }
           } else if (filter.startsWith('cat-')) {
             const category = filter.replace('cat-', '');
-            if (card.getAttribute('data-category') === category) {
-              card.classList.remove('hidden');
+            if (post.getAttribute('data-category') === category) {
+              post.style.display = 'block';
             } else {
-              card.classList.add('hidden');
+              post.style.display = 'none';
             }
           }
         });
         
-        // Smooth scroll animation
-        const postGrid = document.querySelector('.post-grid');
-        if (postGrid) {
-          postGrid.style.opacity = '0.5';
+        // Smooth animation
+        const postsContainer = document.querySelector('.posts');
+        if (postsContainer) {
+          postsContainer.style.opacity = '0.5';
           setTimeout(function() {
-            postGrid.style.opacity = '1';
+            postsContainer.style.opacity = '1';
           }, 150);
         }
       });

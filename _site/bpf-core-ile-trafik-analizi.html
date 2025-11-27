@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="blog" />
   <meta property="og:title" content="blog" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://localhost:4000" />
+  <meta property="og:url" content="https://msrexe.github.io" />
 
   <title>BPF Günlükleri: Packet Counter'dan Trafik Analizine – BPF CO-RE ile Gelişmiş Uygulamalar</title><!-- Begin Jekyll SEO tag v2.7.1 -->
 <meta name="generator" content="Jekyll v3.9.5" />
@@ -22,19 +22,19 @@
 <meta property="og:locale" content="tr" />
 <meta name="description" content="Bu yazıda, eBPF CO-RE desteği ile taşınabilir bir trafik analiz uygulaması geliştireceğiz." />
 <meta property="og:description" content="Bu yazıda, eBPF CO-RE desteği ile taşınabilir bir trafik analiz uygulaması geliştireceğiz." />
-<link rel="canonical" href="http://localhost:4000/bpf-core-ile-trafik-analizi.html" />
-<meta property="og:url" content="http://localhost:4000/bpf-core-ile-trafik-analizi.html" />
+<link rel="canonical" href="https://msrexe.github.io/bpf-core-ile-trafik-analizi.html" />
+<meta property="og:url" content="https://msrexe.github.io/bpf-core-ile-trafik-analizi.html" />
 <meta property="og:site_name" content="blog" />
-<meta property="og:image" content="http://localhost:4000/assets/images/bpf-core-network-analysis.png" />
+<meta property="og:image" content="https://msrexe.github.io/assets/images/bpf-core-network-analysis.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2025-06-16T00:00:00+03:00" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="http://localhost:4000/assets/images/bpf-core-network-analysis.png" />
+<meta property="twitter:image" content="https://msrexe.github.io/assets/images/bpf-core-network-analysis.png" />
 <meta property="twitter:title" content="BPF Günlükleri: Packet Counter’dan Trafik Analizine – BPF CO-RE ile Gelişmiş Uygulamalar" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/bpf-core-ile-trafik-analizi.html","headline":"BPF Günlükleri: Packet Counter’dan Trafik Analizine – BPF CO-RE ile Gelişmiş Uygulamalar","dateModified":"2025-06-16T00:00:00+03:00","datePublished":"2025-06-16T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/bpf-core-ile-trafik-analizi.html"},"description":"Bu yazıda, eBPF CO-RE desteği ile taşınabilir bir trafik analiz uygulaması geliştireceğiz.","@type":"BlogPosting","image":"http://localhost:4000/assets/images/bpf-core-network-analysis.png","@context":"https://schema.org"}</script>
+{"url":"https://msrexe.github.io/bpf-core-ile-trafik-analizi.html","headline":"BPF Günlükleri: Packet Counter’dan Trafik Analizine – BPF CO-RE ile Gelişmiş Uygulamalar","dateModified":"2025-06-16T00:00:00+03:00","datePublished":"2025-06-16T00:00:00+03:00","author":{"@type":"Person","name":"msrexe"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://msrexe.github.io/bpf-core-ile-trafik-analizi.html"},"description":"Bu yazıda, eBPF CO-RE desteği ile taşınabilir bir trafik analiz uygulaması geliştireceğiz.","@type":"BlogPosting","image":"https://msrexe.github.io/assets/images/bpf-core-network-analysis.png","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link type="application/atom+xml" rel="alternate" href="https://msrexe.github.io/feed.xml" title="blog" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,11 +46,11 @@
 <body a="dark">
     <main class="page-content" aria-label="Content">
       <div class="w">
-        <div class="back-link"><a href="/">← Ana Sayfa</a></div>
+        <div class="back-link"><a href="/">← Home</a></div>
 
 <article>
   <h1>BPF Günlükleri: Packet Counter'dan Trafik Analizine – BPF CO-RE ile Gelişmiş Uygulamalar</h1><p class="post-meta">
-    <time datetime="2025-06-16 00:00:00 +0300">16 June 2025</time>
+    <time datetime="2025-06-16 00:00:00 +0300">June 16, 2025</time>
     <span class="read-time">📖 6 min read</span><span class="lang-tag">🌐 TR</span><span class="category">linux</span></p><p class="post-description">Bu yazıda, eBPF CO-RE desteği ile taşınabilir bir trafik analiz uygulaması geliştireceğiz.</p><p><img src="assets/images/bpf-core-network-analysis.png" alt="Image" /></p>
 
 <p>Bir önceki yazıda, eBPF mimarisini kullanarak temel bir <strong>packet counter</strong> uygulaması geliştirmiştik. Ancak klasik yöntemle yazılmış bu eBPF programları, kernel versiyonlarına göre farklılık gösteren <code class="language-plaintext highlighter-rouge">linux/bpf.h</code> gibi bağımlılıklara sahipti. Bu da taşınabilirliği oldukça azaltıyor ve farklı linux çekirdeklerinde kernellarında çalıştırmayı zorlaştırıyordu.</p>
