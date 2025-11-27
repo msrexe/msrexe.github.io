@@ -35,24 +35,24 @@
     {%- endfor -%}
   </div>
   
-  <div class="posts">
+  <ul class="posts">
     {%- for post in posts limit: include.limit -%}
-        <article class="post" data-lang="{{ post.lang }}" data-category="{{ post.category }}">
+        <li class="post" data-lang="{{ post.lang }}" data-category="{{ post.category }}">
           <a href="{{ post.url | relative_url }}" class="post-link">
-            <h2 class="post-title">{{ post.title }}</h2>
+            <span class="post-title">{{ post.title }}</span>
             {%- if post.description -%}
-              <p class="post-desc">{{ post.description }}</p>
+              <span class="post-desc"> — {{ post.description }}</span>
             {%- endif -%}
-            <div class="post-meta">
-              <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
+            <span class="post-meta">
+              <span class="post-date">({{ post.date | date: "%b %d, %Y" }})</span>
               {%- if post.category -%}
-                <span class="post-tag">{{ post.category }}</span>
+                <span class="post-tag">[{{ post.category }}]</span>
               {%- endif -%}
-            </div>
+            </span>
           </a>
-        </article>
+        </li>
     {%- endfor -%}
-  </div>
+  </ul>
   {%- if include.show_more and limit_exceeded -%}
     <div class="show-more-container">
       <a href="{{ include.show_more_url | relative_url }}" class="show-more-btn">{{ include.show_more_text | default: "Show more..." }}</a>
