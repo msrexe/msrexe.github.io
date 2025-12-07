@@ -157,7 +157,7 @@ Kendimizi şablonlar oluştururken ve bunun küçük bir DSL’e dönüştüğü
 * **Girdi formatını açıklar**
 * **Çıkışı tanımlar**
 * **Örnek input-output sağlar**
-* **Köşeli durumları belirtir**
+* **Edge case'leri belirtir**
 * **Modelin sınırlarını çizer**
 
 ### Örnek bir şablon
@@ -193,7 +193,7 @@ Bugün geldiğimiz seviyede, prompt artık “metin girişi” değil,
 
 * Kontrol akışı var (ReAct)
 * Fonksiyon çağrıları var (tool use)
-* Derin düşünme var (CoT)
+* Düşünceler silsilesi var (CoT)
 * Runtime davranışını belirleyen bir config var (system prompt)
 * Şablonlar var (bir nevi DSL mantığı)
 
