@@ -3,7 +3,7 @@ layout: post
 title: "Prompt Engineering’in Evrimi: “Yazdım Oldu”dan Programlama Diline"
 description: "Chain-of-thought, ReAct, tool use ve modern prompt şablonlarının nasıl yeni bir programlama paradigmasına dönüşümü."
 image: /assets/images/meme-prompt.jpg
-category: ai
+category: AI
 slug: prompt-engineering
 author: msrexe
 lang: tr
